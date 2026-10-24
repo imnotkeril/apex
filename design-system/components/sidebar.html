@@ -1,0 +1,58 @@
+<!-- @dsCard group="Layout" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sidebar</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>body{font-family:Inter,sans-serif}</style>
+</head>
+<body class="bg-zinc-100 p-6">
+  <aside class="flex h-[760px] w-60 flex-col rounded-xl bg-zinc-950 text-zinc-300">
+    <!-- brand -->
+    <div class="flex items-center gap-2.5 px-4 py-4">
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-violet-600 text-base font-extrabold text-white">A</span>
+      <div class="leading-tight">
+        <div class="text-sm font-bold tracking-wide text-white">APEX</div>
+        <div class="text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-500">Content Engine</div>
+      </div>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto px-3 pb-4 text-sm">
+      <div class="px-2 pb-1.5 pt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-600">Main</div>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg bg-violet-600 px-3 py-2 font-medium text-white">
+        <span class="h-4 w-4 rounded-sm bg-white/90"></span> Dashboard
+      </a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Raw Posts</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Topic Clusters</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Drafts</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Calendar</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Knowledge Graph</a>
+
+      <div class="px-2 pb-1.5 pt-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-600">Content</div>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Published Posts</a>
+
+      <div class="px-2 pb-1.5 pt-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-600">Settings</div>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Sources</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Styles &amp; Presets</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Tags</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Image Styles</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Auto Mode</a>
+      <a class="mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"><span class="h-4 w-4 rounded-sm bg-zinc-600"></span> Settings</a>
+    </nav>
+
+    <!-- user card -->
+    <a class="m-3 flex items-center gap-2.5 rounded-xl border border-zinc-800 bg-zinc-900/70 px-3 py-2.5 hover:bg-zinc-900">
+      <span class="grid h-9 w-9 place-items-center rounded-full bg-rose-200 text-xs font-bold text-rose-700">YO</span>
+      <span class="min-w-0 flex-1 leading-tight">
+        <span class="block truncate text-sm font-medium text-zinc-100">yoshida_org</span>
+        <span class="block text-[10px] text-zinc-500">org admin</span>
+      </span>
+      <span class="text-zinc-600">›</span>
+    </a>
+    <button class="mx-3 mb-3 flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-zinc-500 hover:bg-zinc-900 hover:text-zinc-300">« Collapse</button>
+  </aside>
+</body>
+</html>

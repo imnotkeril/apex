@@ -1,0 +1,86 @@
+<!-- @dsCard group="Foundations" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>APEX — Design Tokens</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif}</style>
+</head>
+<body class="bg-zinc-50 p-8 text-zinc-900" style="font-family:Inter,sans-serif">
+  <div class="mx-auto max-w-4xl space-y-8">
+    <header>
+      <h1 class="text-2xl font-bold tracking-tight">APEX Design Tokens</h1>
+      <p class="text-sm text-zinc-500">Source of truth extracted from the 14 product mockups. Light theme, violet accent, dark sidebar.</p>
+    </header>
+
+    <!-- color palette -->
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Palette</h2>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div class="rounded-lg border border-zinc-200 bg-white p-3 shadow-sm">
+          <div class="h-10 rounded-md bg-violet-600"></div>
+          <div class="mt-2 text-xs font-medium">Accent / Primary</div>
+          <div class="text-[11px] text-zinc-400">violet-600 · #7c3aed</div>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-3 shadow-sm">
+          <div class="h-10 rounded-md bg-violet-100"></div>
+          <div class="mt-2 text-xs font-medium">Accent soft</div>
+          <div class="text-[11px] text-zinc-400">violet-100 / violet-700 text</div>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-3 shadow-sm">
+          <div class="h-10 rounded-md bg-zinc-950"></div>
+          <div class="mt-2 text-xs font-medium">Sidebar</div>
+          <div class="text-[11px] text-zinc-400">zinc-950 · #09090b</div>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-3 shadow-sm">
+          <div class="h-10 rounded-md border border-zinc-200 bg-zinc-50"></div>
+          <div class="mt-2 text-xs font-medium">Page bg</div>
+          <div class="text-[11px] text-zinc-400">zinc-50 · cards = white</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- status colors -->
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Status / Badge tones</h2>
+      <div class="flex flex-wrap gap-2">
+        <span class="inline-flex items-center rounded-md bg-rose-100 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-rose-700">High / Error</span>
+        <span class="inline-flex items-center rounded-md bg-violet-100 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-violet-700">Medium / Scheduled</span>
+        <span class="inline-flex items-center rounded-md bg-zinc-100 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-zinc-600">Low / Draft</span>
+        <span class="inline-flex items-center rounded-md bg-emerald-100 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-emerald-700">Active / OK</span>
+        <span class="inline-flex items-center rounded-md bg-amber-100 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-amber-700">Warning</span>
+        <span class="inline-flex items-center rounded-md bg-sky-100 px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-sky-700">New</span>
+      </div>
+    </section>
+
+    <!-- typography -->
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Type scale</h2>
+      <div class="space-y-2 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+        <div class="text-2xl font-bold tracking-tight">Page title — text-2xl/700 uppercase</div>
+        <div class="text-3xl font-bold">124 — stat number, text-3xl/700</div>
+        <div class="text-sm font-semibold text-zinc-900">Card title — text-sm/600</div>
+        <div class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Section label — xs/600 uppercase</div>
+        <div class="text-sm text-zinc-700">Body — text-sm zinc-700</div>
+        <div class="text-xs text-zinc-500">Meta / time-ago — xs zinc-500</div>
+      </div>
+    </section>
+
+    <!-- radius / spacing -->
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Radius · shadow · density</h2>
+      <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm">
+        <ul class="list-inside list-disc space-y-1">
+          <li>Cards / buttons: <code class="rounded bg-zinc-100 px-1">rounded-lg</code> (8px) · badges/inputs <code class="rounded bg-zinc-100 px-1">rounded-md</code></li>
+          <li>Card shadow: <code class="rounded bg-zinc-100 px-1">shadow-sm</code> + <code class="rounded bg-zinc-100 px-1">border-zinc-200</code> (crisp, cards pop off bg)</li>
+          <li>Dense grid: card padding <code class="rounded bg-zinc-100 px-1">p-4</code>, stat <code class="rounded bg-zinc-100 px-1">gap-3</code>, sections <code class="rounded bg-zinc-100 px-1">gap-4</code> (tight, not gap-6)</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

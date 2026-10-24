@@ -1,0 +1,52 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Badges &amp; Buttons</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>body{font-family:Inter,sans-serif}</style>
+</head>
+<body class="bg-zinc-50 p-8">
+  <div class="max-w-3xl space-y-8">
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Badges (UPPERCASE, pastel)</h2>
+      <div class="flex flex-wrap gap-2">
+        <span class="inline-flex items-center rounded-md bg-rose-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-rose-700">High Priority</span>
+        <span class="inline-flex items-center rounded-md bg-violet-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-violet-700">Medium Priority</span>
+        <span class="inline-flex items-center rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-zinc-600">Low Priority</span>
+        <span class="inline-flex items-center rounded-md bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700">Active</span>
+        <span class="inline-flex items-center rounded-md bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700">OK</span>
+        <span class="inline-flex items-center rounded-md bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700">Passed</span>
+        <span class="inline-flex items-center rounded-md bg-amber-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-amber-700">Warning</span>
+        <span class="inline-flex items-center rounded-md bg-rose-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-rose-700">Error</span>
+        <span class="inline-flex items-center rounded-md bg-rose-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-rose-700">Failed</span>
+        <span class="inline-flex items-center rounded-md bg-sky-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-sky-700">New</span>
+        <span class="inline-flex items-center rounded-md bg-violet-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-violet-700">Scheduled</span>
+        <span class="inline-flex items-center rounded-md bg-amber-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-amber-700">In Progress</span>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Buttons</h2>
+      <div class="flex flex-wrap items-center gap-3">
+        <button class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700">Create Draft</button>
+        <button class="rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">View Sources</button>
+        <button class="rounded-lg border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 hover:bg-rose-100">Dismiss</button>
+        <button class="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100">Ghost</button>
+        <span class="text-xs text-zinc-400">sizes: sm = px-2.5 py-1.5 text-xs · md = px-4 py-2 text-sm</span>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Toggle</h2>
+      <div class="flex items-center gap-4">
+        <span class="relative inline-flex h-5 w-9 items-center rounded-full bg-violet-600"><span class="ml-auto mr-0.5 h-4 w-4 rounded-full bg-white"></span></span>
+        <span class="relative inline-flex h-5 w-9 items-center rounded-full bg-zinc-200"><span class="ml-0.5 h-4 w-4 rounded-full bg-white"></span></span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

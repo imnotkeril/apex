@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  /* hard sans fallback so text is never serif even if the webfont fails to load */
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* ── responsive tokens (RESPONSIVE_DESIGN_RULES.md) ── */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --page-padding: clamp(16px, 2vw, 40px);
+  --card-padding: clamp(12px, 1.5vw, 24px);
+  --section-gap:  clamp(16px, 2vw, 32px);
+  --card-gap:     clamp(12px, 1.5vw, 24px);
+  --content-max-width: 1920px;
+  --right-panel-width: 360px;
+  --header-height: 56px;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+}
+
+body {
+  @apply min-h-screen bg-canvas text-ink antialiased;
+}
+
+/* thin scrollbars for panels */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme(colors.line.DEFAULT) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-line;
+}

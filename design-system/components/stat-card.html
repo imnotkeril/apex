@@ -1,0 +1,64 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stat Card</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>body{font-family:Inter,sans-serif}</style>
+</head>
+<body class="bg-zinc-50 p-6">
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+    <!-- card: icon-left, BIG bold number, colored delta + caption -->
+    <div class="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-violet-100 text-violet-700">▤</span>
+      <div class="min-w-0">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">New Posts (24h)</div>
+        <div class="mt-1 text-3xl font-extrabold leading-none tracking-tight text-zinc-900">124</div>
+        <div class="mt-1.5 flex items-center gap-1 text-[11px]">
+          <span class="font-semibold text-violet-600">+18% ↗</span>
+          <span class="text-zinc-400">vs yesterday</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-violet-100 text-violet-700">◈</span>
+      <div class="min-w-0">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">Active Clusters</div>
+        <div class="mt-1 text-3xl font-extrabold leading-none tracking-tight text-zinc-900">17</div>
+        <div class="mt-1.5 flex items-center gap-1 text-[11px]"><span class="text-zinc-400">— vs yesterday</span></div>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-violet-100 text-violet-700">✎</span>
+      <div class="min-w-0">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">Drafts Ready</div>
+        <div class="mt-1 text-3xl font-extrabold leading-none tracking-tight text-zinc-900">8</div>
+        <div class="mt-1.5 flex items-center gap-1 text-[11px]"><span class="font-semibold text-violet-600">+2 ↗</span><span class="text-zinc-400">vs yesterday</span></div>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-violet-100 text-violet-700">➤</span>
+      <div class="min-w-0">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">Published (Week)</div>
+        <div class="mt-1 text-3xl font-extrabold leading-none tracking-tight text-zinc-900">23</div>
+        <div class="mt-1.5 flex items-center gap-1 text-[11px]"><span class="font-semibold text-violet-600">+4 ↗</span><span class="text-zinc-400">vs last week</span></div>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-violet-100 text-violet-700">◉</span>
+      <div class="min-w-0">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">Total Views (Week)</div>
+        <div class="mt-1 text-3xl font-extrabold leading-none tracking-tight text-zinc-900">48.2K</div>
+        <div class="mt-1.5 flex items-center gap-1 text-[11px]"><span class="font-semibold text-violet-600">+12% ↗</span><span class="text-zinc-400">vs last week</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

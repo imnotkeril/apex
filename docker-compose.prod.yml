@@ -1,0 +1,113 @@
+# PRODUCTION compose (written, NOT yet run - see docs/plan.md "Needs owner").
+#
+#   docker compose -f docker-compose.prod.yml --env-file docker.env up -d --build
+#
+# Standalone on purpose: pass it with -f so docker-compose.override.yml (dev) is not merged in.
+# Differences from the dev stack: no source bind mounts, no --reload, DB/Redis not published to the
+# host, one-shot `migrate` job, frontend served from a production build, healthchecks on the API.
+# TLS is NOT handled here: put a reverse proxy (Caddy/nginx/Traefik or your host's load balancer)
+# in front of backend:8000 and frontend:3000. Using a managed Postgres? Drop the postgres service
+# and point DATABASE_URL in docker.env at it (needs the pgvector extension).
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    env_file:
+      - docker.env
+    environment:
+      POSTGRES_DB: apex
+      POSTGRES_USER: apex_user
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apex_user -d apex"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  migrate:
+    build: ./backend
+    env_file:
+      - docker.env
+    command: alembic upgrade head
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - docker.env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  celery_worker:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - docker.env
+    command: celery -A app.core.celery_app worker --loglevel=info --concurrency=4 -Q core,modules
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  celery_beat:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - docker.env
+    # keep the schedule file on a volume so restarts do not re-fire missed periodic tasks
+    command: celery -A app.core.celery_app beat --loglevel=info --schedule /beat/celerybeat-schedule
+    volumes:
+      - beat_data:/beat
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    env_file:
+      - frontend/.env.docker
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
+  beat_data:

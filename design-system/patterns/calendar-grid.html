@@ -1,0 +1,64 @@
+<!-- @dsCard group="Patterns" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Content Calendar</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>body{font-family:Inter,sans-serif}</style>
+</head>
+<body class="bg-zinc-50 p-6">
+  <!-- toolbar -->
+  <div class="mb-4 flex flex-wrap items-center gap-3">
+    <div class="flex rounded-lg bg-white p-0.5 ring-1 ring-zinc-200 text-sm">
+      <button class="rounded-md bg-violet-100 px-3 py-1 font-medium text-violet-700">Month</button>
+      <button class="px-3 py-1 text-zinc-500">Week</button>
+      <button class="px-3 py-1 text-zinc-500">List</button>
+    </div>
+    <div class="flex items-center gap-1 text-sm"><button class="grid h-7 w-7 place-items-center rounded-md border border-zinc-200">‹</button><span class="px-2 font-medium text-zinc-800">May 2025</span><button class="grid h-7 w-7 place-items-center rounded-md border border-zinc-200">›</button></div>
+    <button class="rounded-lg border border-zinc-200 px-3 py-1.5 text-sm text-zinc-600">Today</button>
+    <button class="ml-auto rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700">+ Schedule Content</button>
+  </div>
+
+  <!-- calendar -->
+  <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+    <div class="grid grid-cols-7 border-b border-zinc-100 text-[11px] font-semibold uppercase tracking-wide text-zinc-400">
+      <div class="px-3 py-2">Mon</div><div class="px-3 py-2">Tue</div><div class="px-3 py-2">Wed</div><div class="px-3 py-2">Thu</div><div class="px-3 py-2">Fri</div><div class="px-3 py-2">Sat</div><div class="px-3 py-2">Sun</div>
+    </div>
+    <div class="grid grid-cols-7 divide-x divide-y divide-zinc-100">
+      <div class="min-h-28 p-2 text-xs text-zinc-300">28</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-300">29</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-300">30</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-300">1</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-300">2</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-300">3</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-300">4</div>
+
+      <div class="min-h-28 p-2"><div class="mb-1 text-xs font-medium text-zinc-500">5</div>
+        <div class="mb-1 rounded-md bg-violet-50 px-1.5 py-1 text-[11px] ring-1 ring-violet-100"><span class="font-medium text-zinc-700">✈ US Jobs Report</span><div class="text-zinc-400">09:00 · EN</div></div>
+        <div class="rounded-md bg-rose-50 px-1.5 py-1 text-[11px] ring-1 ring-rose-100"><span class="font-medium text-zinc-700">in Weekly Recap</span><div class="text-zinc-400">18:00 · EN</div></div>
+      </div>
+      <div class="min-h-28 p-2"><div class="mb-1 text-xs font-medium text-zinc-500">6</div><div class="rounded-md bg-zinc-50 px-1.5 py-1 text-[11px] ring-1 ring-zinc-100"><span class="font-medium text-zinc-700">𝕏 Fed Speakers</span><div class="text-zinc-400">12:00 · EN</div></div></div>
+      <div class="min-h-28 p-2"><div class="mb-1 text-xs font-medium text-zinc-500">7</div><div class="rounded-md bg-violet-50 px-1.5 py-1 text-[11px] ring-1 ring-violet-100"><span class="font-medium text-zinc-700">✈ Crypto Update</span><div class="text-zinc-400">09:00 · EN</div></div></div>
+      <div class="min-h-28 bg-violet-50/40 p-2 ring-1 ring-inset ring-violet-200"><div class="mb-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-[11px] font-bold text-white">8</div><div class="rounded-md bg-violet-50 px-1.5 py-1 text-[11px] ring-1 ring-violet-100"><span class="font-medium text-zinc-700">✈ CPI Update</span><div class="text-zinc-400">18:00 · EN, RU</div></div></div>
+      <div class="min-h-28 p-2"><div class="mb-1 text-xs font-medium text-zinc-500">9</div><div class="rounded-md bg-rose-50 px-1.5 py-1 text-[11px] ring-1 ring-rose-100"><span class="font-medium text-zinc-700">in Japan Wage</span><div class="text-zinc-400">09:00 · EN, JA</div></div></div>
+      <div class="min-h-28 p-2 text-xs text-zinc-400">10</div>
+      <div class="min-h-28 p-2 text-xs text-zinc-400">11</div>
+    </div>
+  </div>
+
+  <!-- legend -->
+  <div class="mt-3 flex flex-wrap items-center gap-4 text-[11px] text-zinc-500">
+    <span class="flex items-center gap-1.5">✈ Telegram</span>
+    <span class="flex items-center gap-1.5">in LinkedIn</span>
+    <span class="flex items-center gap-1.5">𝕏 X</span>
+    <span class="flex items-center gap-1.5">✉ Email</span>
+    <span class="ml-4 flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-violet-500"></span> Scheduled</span>
+    <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-amber-500"></span> Publishing</span>
+    <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span> Published</span>
+    <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-rose-500"></span> Failed</span>
+  </div>
+</body>
+</html>

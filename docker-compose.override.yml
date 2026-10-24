@@ -1,0 +1,16 @@
+# DEV override: build frontend (.next) into the image and serve it in production
+# mode. Reason: Next.js over Docker bind mounts on Windows/WSL2 fails to compile/
+# serve nested routes (404). Building into the image + shielding /app/.next with an
+# anonymous volume makes routing reliable. Delete this file to go back to `npm run dev`.
+#
+# IMPORTANT: after `docker compose build frontend`, redeploy with
+#   docker compose up -d --force-recreate --renew-anon-volumes frontend
+# Plain `up -d` KEEPS the old anonymous /app/.next volume and serves the stale build.
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    command: npm run start
+    volumes:
+      - /app/.next

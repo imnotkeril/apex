@@ -1,0 +1,53 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Detail Drawer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>body{font-family:Inter,sans-serif}</style>
+</head>
+<body class="bg-zinc-50 p-6">
+  <aside class="flex w-[360px] flex-col rounded-xl border-l border-zinc-200 bg-white p-5 shadow-sm">
+    <div class="mb-3 flex items-center justify-between">
+      <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Cluster Details</h3>
+      <button class="grid h-7 w-7 place-items-center rounded-md text-zinc-400 hover:bg-zinc-100">✕</button>
+    </div>
+
+    <div class="mb-2 flex items-center justify-between">
+      <span class="rounded-md bg-rose-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-rose-700">High Priority</span>
+      <span class="text-[11px] text-zinc-400">Created 2 hours ago</span>
+    </div>
+    <h2 class="text-lg font-bold leading-snug text-zinc-900">US FRB Maintains 5.25–5.50% Rate Range</h2>
+    <p class="mt-1.5 text-sm text-zinc-500">The Federal Reserve kept interest rates steady in its May meeting, citing continued progress on inflation.</p>
+
+    <div class="mt-3 flex flex-wrap gap-1">
+      <span class="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600">macro</span>
+      <span class="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600">fed</span>
+      <span class="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-medium text-zinc-600">rates</span>
+    </div>
+
+    <!-- metric grid -->
+    <div class="mt-4 grid grid-cols-3 gap-3 rounded-lg bg-zinc-50 p-3 text-center">
+      <div><div class="text-lg font-bold text-zinc-900">4</div><div class="text-[10px] uppercase text-zinc-400">Sources</div></div>
+      <div><div class="text-lg font-bold text-zinc-900">18</div><div class="text-[10px] uppercase text-zinc-400">Posts</div></div>
+      <div><div class="text-lg font-bold text-zinc-900">2.1h</div><div class="text-[10px] uppercase text-zinc-400">Freshness</div></div>
+    </div>
+
+    <div class="mt-4 mb-2 text-[11px] font-semibold uppercase tracking-wide text-zinc-400">Top Sources</div>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-center justify-between"><span class="flex items-center gap-2 text-zinc-700">⬤ Bloomberg Economics</span><span class="text-xs text-zinc-400">5 posts · 2h</span></li>
+      <li class="flex items-center justify-between"><span class="flex items-center gap-2 text-zinc-700">⬤ The Wall Street Journal</span><span class="text-xs text-zinc-400">4 posts · 3h</span></li>
+      <li class="flex items-center justify-between"><span class="flex items-center gap-2 text-zinc-700">⬤ Reuters</span><span class="text-xs text-zinc-400">5 posts · 1h</span></li>
+    </ul>
+
+    <div class="mt-5 space-y-2">
+      <button class="w-full rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700">Create Draft from Cluster</button>
+      <button class="w-full rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">View All Posts</button>
+      <button class="w-full rounded-lg border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 hover:bg-rose-100">Dismiss This Cluster</button>
+    </div>
+  </aside>
+</body>
+</html>

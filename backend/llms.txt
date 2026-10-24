@@ -1,0 +1,113 @@
+# APEX API
+
+APEX is a single-tenant / self-hosted content engine: it ingests raw posts from
+sources (Telegram channels, RSS, YouTube, manual links/text), clusters them into
+topics, runs an AI pipeline to synthesize drafts (Telegram/LinkedIn/Twitter
+formats + translations + fact-check + optional image), and publishes them.
+
+Base URL: this server's origin. All API routes below are prefixed `/api/v1`
+unless noted otherwise. Responses are JSON unless noted.
+
+## Auth
+
+- Bearer JWT (Supabase-issued) in `Authorization: Bearer <token>`.
+- `GET /api/v1/auth/me` — current user profile.
+- `POST /api/v1/auth/logout` — stateless; client discards the session.
+- Multi-tenant: every resource is scoped to the caller's `org_id`, derived from
+  the authenticated user. There is no cross-org access.
+- Dev mode (`DEV_AUTH=true`, non-production only) bypasses Supabase and issues
+  a fixed dev user/org — never enabled in production.
+
+## Errors
+
+JSON error body: `{"error": "<CODE>", "message": "<safe message>"}`.
+
+| Status | Meaning |
+|---|---|
+| 400 | `ApexException` — validation / business-rule error |
+| 401 | missing/invalid auth |
+| 403 | `PermissionDeniedException` — actor lacks the required role |
+| 404 | `ResourceNotFoundException` — resource missing or outside caller's org |
+| 429 | `AIQuotaExceededException` — org's daily AI budget exceeded |
+| 503 | `AIRouterException` — all AI providers failed for a task |
+
+## Resource groups
+
+### Users & Org (`/api/v1/users`, `/api/v1/orgs`)
+- `GET /users/` — list active users in the caller's org.
+- `PATCH /users/me` — update own profile / `preferences` (JSON: default_language,
+  content_tone, writing_style, default_length, notifications, ...).
+- `GET|PATCH /orgs/current` — read/update the org (name, `settings` JSON).
+- `GET /orgs/current/integrations`, `PUT /orgs/current/integrations` — org-level
+  API keys/secrets (AI providers, Telegram/Twitter/LinkedIn/SMTP email, source parsing).
+  Values are encrypted at rest; org value wins, falls back to server env var.
+- `GET /orgs/current/users` — team roster (id, name, email, role, active, created).
+- `PATCH /orgs/current/users/{user_id}` — body `{role?, is_active?}`, role one of
+  `admin|editor|viewer`. Caller must have role `admin` (403 otherwise). A caller
+  may not demote or deactivate their own account (400).
+- `POST /orgs/current/notifications/test` — sends a real Telegram test message
+  via the org's (or env-fallback) bot; `{"ok": true}` on success, 400 if no bot
+  token/chat id is configured.
+
+### Content (`/api/v1/content`)
+- Sources: `GET|POST /sources`, `PUT|DELETE /sources/{id}`,
+  `POST /sources/{id}/parse`, `POST /sources/parse-all`, `GET /sources/{id}/status`.
+- Raw posts: `GET /raw-posts`, `GET|PATCH|DELETE /raw-posts/{id}`,
+  `GET /raw-posts/{id}/related` (pgvector, tag-overlap fallback),
+  `PATCH /raw-posts/{id}/tags` (body `{tags}`).
+- Custom input: `POST /custom-input` (url | youtube | text).
+- Clusters: `GET /clusters`, `GET /clusters/{id}`, `POST /clusters/refresh`,
+  `POST /clusters/{id}/dismiss`, `POST /clusters/search` (body `{query, tags}`).
+- Drafts: `GET|POST /drafts`, `GET /drafts/{id}`, `GET /drafts/{id}/status`,
+  `PATCH|DELETE /drafts/{id}`, `GET /drafts/{id}/related`,
+  `POST /drafts/{id}/publish` (body: platforms, languages, optional `scheduled_at`) — queues the
+  publish pipeline (async), or with a future `scheduled_at` creates a calendar entry
+  (`{"status":"scheduled"}`) that a beat task publishes when due. Platforms: telegram,
+  twitter, linkedin, email. `POST /drafts/{id}/regenerate` (re-runs the pipeline),
+  `GET /drafts/{id}/pdf?lang=`, `GET /drafts/{id}/pptx?lang=` (downloads),
+  `GET /drafts/{id}/chart.png` (from `chart_data`, set via PATCH). `regenerate` body `{steps, languages}`
+  re-runs only the chosen stages.
+- Published: `GET /published`, `GET /published/{id}`,
+  `POST /published/{id}/sync`, `POST /published/sync-all` (Twitter/X metrics only; other
+  platforms are reported unsupported), `PATCH /published/{id}/tags`.
+- Style / image-style presets: `GET|POST /style-presets`,
+  `PUT|DELETE /style-presets/{id}`, `POST /style-presets/{id}/duplicate`,
+  `GET /style-presets/{id}/versions`, `POST /style-presets/{id}/restore` (body `{version}`),
+  `GET|POST /image-style-presets`, `PUT|DELETE /image-style-presets/{id}`.
+- Tags: `GET|POST /tags`, `PUT|DELETE /tags/{id}`.
+- Knowledge graph: `GET /graph`, `GET /graph/{id}` (node + neighbours), `POST /graph/links`, `DELETE /graph/links/{id}`.
+- Auto-mode: `GET|PUT /auto-mode`, `POST /auto-mode/enable`,
+  `POST /auto-mode/disable`, `GET /auto-mode/preview`, `GET /auto-mode/activity`
+  (run history + 30-day stats).
+- Calendar: `GET /calendar`, `PUT /calendar/{id}/reschedule`,
+  `DELETE /calendar/{id}`.
+- Recommendations: `GET /recommendations`, `POST /recommendations/refresh`.
+- Dashboard / reporting: `GET /dashboard-stats`, `GET /my-activity`,
+  `GET /ai-usage` — today/30d AI spend, by model, by task, plus
+  `daily_limit_usd` / `daily_remaining_usd` (respects the org's
+  `settings.ai_daily_limit_usd` override, else the server default).
+- Export: `GET /export` (JSON download, `Content-Disposition: attachment`,
+  filename `apex-export.json`) — org-scoped `{org, sources[], drafts[],
+  published[], tags[], exported_at}`. Also reachable, unauthenticated-path
+  aside, at the un-versioned alias `GET /api/content/export`.
+
+## Notifications
+
+Org-level Telegram notifications, toggled per event in
+`org.settings.notifications` (`draft_ready`, `published`, `pipeline_failed`,
+`budget_alert`; default on when unset). Sent via the org's Telegram bot token
++ chat id (falls back to server env vars). Delivery failures are logged and
+never break the triggering pipeline/job. `budget_alert` fires at most once per
+UTC calendar day, when daily AI spend reaches 80% of the org's daily budget.
+
+## AI spend guard
+
+Every AI call is metered (`ai_usage` table) and gated against the org's daily
+budget (`org.settings.ai_daily_limit_usd`, falling back to the server's
+`MAX_AI_COST_PER_DAY_USD`). Once the budget is reached the AI router raises a
+429 (`AI_QUOTA_EXCEEDED`) instead of calling a paid model.
+
+## Misc
+
+- `GET /health` — liveness probe.
+- `GET /llms.txt` — this document.
