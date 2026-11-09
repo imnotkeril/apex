@@ -26,3 +26,8 @@ htmlcov/
 # Local Docker env (holds real API keys); copy docker.env.example to docker.env
 docker.env
 celerybeat-schedule
+
+# Internal agent/planning files (kept locally, not published)
+Docs/*
+!Docs/APEX_ENV_SETUP_GUIDE.md
+!Docs/SECRETS_SETUP.md

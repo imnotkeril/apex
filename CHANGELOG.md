@@ -96,8 +96,8 @@ not yet have tagged releases — the sections below describe the current state o
 
 ### Known gaps
 
-- Nothing has been run against live Telegram/LinkedIn/Twitter/SMTP/AI accounts; see
-  `Docs/plan.md` ("Needs owner") for what must be supplied and verified.
+- Nothing has been run against live Telegram/LinkedIn/Twitter/SMTP/AI accounts; the
+  provider credentials must be supplied and verified by the operator.
 - Production path is written but unrun: no TLS termination, hosting target undecided.
 - Nothing in the pipeline generates `chart_data` yet; it is supplied via PATCH /drafts/{id}.
 - PDF export needs a Unicode TTF for non-Latin text (DejaVu in the image; CJK needs `APEX_PDF_FONT`).
