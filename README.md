@@ -208,7 +208,7 @@ APEX/
 ├── frontend/
 │   ├── app/
 │   │   ├── (auth)/login/          # Google OAuth sign-in
-│   │   └── (dashboard)/           # sidebar-nested app pages (see USER_GUIDE.md)
+│   │   └── (dashboard)/           # sidebar-nested app pages (see docs/USER_GUIDE.md)
 │   ├── components/                 # layout (sidebar, page-header), ui (button, table, modal, ...)
 │   └── lib/api/                    # hooks.ts (TanStack Query), types.ts, content.ts (fetch client)
 └── Docs/                           # ТЗ / specs / setup guides (internal, not user-facing)
