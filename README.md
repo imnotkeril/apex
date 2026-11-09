@@ -218,8 +218,7 @@ APEX/
 
 - The full pipeline (parse → analyze → cluster → draft → publish) is implemented end to end.
   It has been unit-tested with mocked providers only: nothing in this repo has been verified
-  against live Telegram / LinkedIn / Twitter / SMTP / AI accounts yet (see `Docs/plan.md`,
-  "Needs owner"). Pages show real data only; an empty install shows empty states.
+  against live Telegram / LinkedIn / Twitter / SMTP / AI accounts yet. Pages show real data only; an empty install shows empty states.
 - Auto Mode records every cycle decision (draft started, or slot skipped and why) in
   `auto_mode_runs`; the Overview/Rules/Activity tabs and metrics are computed from that
   history. Apply migration `005_auto_runs` (`alembic upgrade head`).
