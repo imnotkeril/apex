@@ -1,5 +1,9 @@
 # APEX Content Engine
 
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="APEX dashboard" width="900">
+</p>
+
 APEX is a self-hosted, multi-tenant AI content automation platform. It watches content
 sources (Telegram channels, RSS feeds, YouTube, manual URLs/text), groups what it collects
 into topic clusters, and runs an AI pipeline that turns a cluster (or a hand-picked set of
@@ -38,6 +42,14 @@ translation → fact-check → optional image) → publishing.
 - **Multi-tenant**: every resource is scoped to the caller's `org_id`; Team & Access,
   Billing (AI spend/budget), Notifications (Telegram), and Advanced (export, `/llms.txt`)
   live under Settings.
+
+## Screenshots
+
+| Topic clusters | Drafts |
+| --- | --- |
+| ![Topic clusters](docs/screenshots/topic-clusters.png) | ![Drafts](docs/screenshots/drafts.png) |
+| **Content calendar** | **Knowledge graph** |
+| ![Calendar](docs/screenshots/calendar.png) | ![Knowledge graph](docs/screenshots/knowledge-graph.png) |
 
 ## Architecture
 
@@ -217,3 +229,11 @@ APEX/
 - Production: `docker-compose.prod.yml` (migrate job, no bind mounts, healthchecks) and
   `.github/workflows/ci.yml` exist but have not been run. TLS termination and the hosting
   target are not decided. Backend tests: `cd backend && python -m pytest -q`; frontend: `cd frontend && npm test`.
+
+## License
+
+[MIT](LICENSE)
+
+## Security
+
+Set `ENVIRONMENT=production` in deployments: the backend then refuses to start with `DEV_AUTH=true` or a weak `SECRET_KEY`. Never commit `.env` files.
