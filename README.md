@@ -148,8 +148,8 @@ For local dev without any of that, set `DEV_AUTH=true` in `docker.env` to bypass
 with a fixed dev user/org — never enable this in production.
 
 Full step-by-step (every variable, where to get it, common errors):
-[`Docs/APEX_ENV_SETUP_GUIDE.md`](Docs/APEX_ENV_SETUP_GUIDE.md) ·
-[`Docs/SECRETS_SETUP.md`](Docs/SECRETS_SETUP.md) (quick "what do I actually need" version).
+[`docs/setup/ENV_SETUP.md`](docs/setup/ENV_SETUP.md) ·
+[`docs/setup/SECRETS_SETUP.md`](docs/setup/SECRETS_SETUP.md) (quick "what do I actually need" version).
 
 Org-level integration keys (AI providers, Telegram, Twitter, LinkedIn, SMTP email) can also be pasted
 directly into the running app under **Settings → Integrations** — they're encrypted at rest
@@ -211,7 +211,7 @@ APEX/
 │   │   └── (dashboard)/           # sidebar-nested app pages (see USER_GUIDE.md)
 │   ├── components/                 # layout (sidebar, page-header), ui (button, table, modal, ...)
 │   └── lib/api/                    # hooks.ts (TanStack Query), types.ts, content.ts (fetch client)
-└── Docs/                           # ТЗ / specs / setup guides (internal, not user-facing)
+└── docs/                           # setup guides, screenshots
 ```
 
 ## Current status / roadmap

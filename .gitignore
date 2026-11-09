@@ -29,5 +29,5 @@ celerybeat-schedule
 
 # Internal agent/planning files (kept locally, not published)
 Docs/*
-!Docs/APEX_ENV_SETUP_GUIDE.md
-!Docs/SECRETS_SETUP.md
+!docs/setup/
+!docs/screenshots/
