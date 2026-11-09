@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -48,6 +48,15 @@ class Settings(BaseSettings):
 
     DEFAULT_ORG_SLUG: str = Field(default="default", description="Bootstrap org slug for first-time OAuth users")
     DEFAULT_ORG_NAME: str = Field(default="APEX Default", description="Human-readable name for bootstrap org")
+
+    @model_validator(mode="after")
+    def _refuse_unsafe_production(self) -> "Settings":
+        if self.ENVIRONMENT.lower() in {"production", "prod"}:
+            if self.DEV_AUTH:
+                raise ValueError("DEV_AUTH must be false when ENVIRONMENT=production")
+            if len(self.SECRET_KEY) < 32 or self.SECRET_KEY.startswith("change-me"):
+                raise ValueError("SECRET_KEY must be a random string of 32+ characters in production")
+        return self
 
     @property
     def allowed_origins_list(self) -> list[str]:
