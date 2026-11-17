@@ -1,4 +1,4 @@
-# CI (written, not yet run on GitHub). Runs the same checks used locally during the finish-up pass.
+# CI: backend pytest; frontend type-check, unit tests, lint and production build.
 name: ci
 
 on:
