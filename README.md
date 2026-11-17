@@ -1,6 +1,16 @@
-# APEX Content Engine
+<p align="center"><img src="docs/screenshots/social-preview.png" alt="APEX Content Engine" width="900"></p>
 
-<p align="center"><img src="docs/screenshots/social-preview.png" alt="APEX Content Engine: self-hosted AI content automation" width="100%"></p>
+<h1 align="center">APEX Content Engine</h1>
+<p align="center"><b>Self-hosted AI content automation platform</b><br>
+Collects posts from Telegram, RSS, YouTube and the web, groups them into topics, and turns them into researched, fact-checked drafts published to Telegram, LinkedIn, X and email.</p>
+
+<p align="center">
+  <a href="#screenshots"><b>Screenshots</b></a> &nbsp;·&nbsp;
+  <a href="#quickstart">Quickstart</a> &nbsp;·&nbsp;
+  <a href="docs/USER_GUIDE.md">Docs</a> &nbsp;·&nbsp;
+  <a href="backend/llms.txt">API reference</a> &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">Changelog</a>
+</p>
 
 <p align="center">
   <a href="https://github.com/imnotkeril/apex/actions/workflows/ci.yml"><img src="https://github.com/imnotkeril/apex/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
@@ -11,7 +21,13 @@
   <img src="https://img.shields.io/badge/PostgreSQL-pgvector-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL with pgvector">
 </p>
 
-There is no hosted live demo: APEX is self-hosted, so run it locally with the [Quickstart](#quickstart).
+<p align="center">
+  <a href="docs/screenshots/dashboard.png"><img src="docs/screenshots/dashboard.png" alt="APEX dashboard: clusters, drafts, sources health and pipeline progress" width="900"></a>
+</p>
+
+> There is no hosted live demo: APEX is self-hosted, so [run it locally](#quickstart). The screenshots below come from a local run with the seeded demo data of `backend/scripts/seed_dev.py`.
+>
+> Provider integrations (Telegram, LinkedIn, X, SMTP, AI) are covered by mocked tests only; supply and verify your own credentials before relying on them.
 
 APEX is a self-hosted, multi-tenant AI content automation platform. It watches content
 sources (Telegram channels, RSS feeds, YouTube, manual URLs/text), groups what it collects
@@ -54,11 +70,16 @@ translation → fact-check → optional image) → publishing.
 
 ## Screenshots
 
-| Topic clusters | Drafts |
-| --- | --- |
-| ![Topic clusters](docs/screenshots/topic-clusters.png) | ![Drafts](docs/screenshots/drafts.png) |
-| **Content calendar** | **Knowledge graph** |
-| ![Calendar](docs/screenshots/calendar.png) | ![Knowledge graph](docs/screenshots/knowledge-graph.png) |
+All shots are 1920x1080 from a local Docker run (DEV_AUTH) with seeded demo data. Nothing is connected to a live provider account.
+
+| | |
+|---|---|
+| ![APEX dashboard with KPIs, AI recommendations, sources health, pipeline and recent activity](docs/screenshots/dashboard.png) | ![Raw posts table with summary, tags and status filters](docs/screenshots/raw-posts.png) |
+| **Dashboard.** Clusters, drafts, sources health, pipeline progress and AI spend at a glance | **Raw posts.** Everything collected from sources, with AI summary, tags and status |
+| ![Topic clusters ranked by priority and freshness](docs/screenshots/topic-clusters.png) | ![Drafts list with pipeline status, fact-check result and formats](docs/screenshots/drafts.png) |
+| **Topic clusters.** AI-grouped topics ranked by priority and freshness, one click to a draft | **Drafts.** Pipeline status, fact-check result and publish formats per draft |
+| ![Content calendar with scheduled Telegram and X posts](docs/screenshots/calendar.png) | ![Knowledge graph linking raw and published posts](docs/screenshots/knowledge-graph.png) |
+| **Calendar.** Scheduled posts per platform, published when they are due | **Knowledge graph.** Raw and published posts linked by topic |
 
 ## Architecture
 
