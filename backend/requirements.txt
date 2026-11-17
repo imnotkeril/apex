@@ -37,7 +37,7 @@ telethon==1.34.0
 yt-dlp>=2024.10.7
 beautifulsoup4==4.12.3
 tweepy==4.14.0
-reportlab>=4.0,<5
+reportlab>=5.1.0,<6
 python-pptx==1.0.2
 matplotlib>=3.8,<4
 
