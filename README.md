@@ -1,8 +1,17 @@
 # APEX Content Engine
 
+<p align="center"><img src="docs/screenshots/social-preview.png" alt="APEX Content Engine: self-hosted AI content automation" width="100%"></p>
+
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="APEX dashboard" width="900">
+  <a href="https://github.com/imnotkeril/apex/actions/workflows/ci.yml"><img src="https://github.com/imnotkeril/apex/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License MIT"></a>
+  <img src="https://img.shields.io/badge/tests-134%20passed-brightgreen" alt="Tests: 134 passed">
+  <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white" alt="FastAPI"></a>
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white" alt="Next.js 14"></a>
+  <img src="https://img.shields.io/badge/PostgreSQL-pgvector-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL with pgvector">
 </p>
+
+There is no hosted live demo: APEX is self-hosted, so run it locally with the [Quickstart](#quickstart).
 
 APEX is a self-hosted, multi-tenant AI content automation platform. It watches content
 sources (Telegram channels, RSS feeds, YouTube, manual URLs/text), groups what it collects
@@ -53,35 +62,15 @@ translation → fact-check → optional image) → publishing.
 
 ## Architecture
 
-```text
-┌─────────────────┐        ┌──────────────────────────────────────────────┐
-│   Next.js 14     │  HTTP  │                 FastAPI backend               │
-│  (frontend :3000)│───────►│                   (:8000)                     │
-│  Supabase client  │        │  /api/v1/{auth,users,orgs,companies,content}  │
-│  (Google OAuth)   │        │  /llms.txt   /health   /docs                  │
-└─────────────────┘        └───────┬───────────────┬────────────────────┘
-                                     │               │
-                          SQLAlchemy│               │Celery tasks
-                                     ▼               ▼
-                        ┌───────────────────┐  ┌───────────────────────┐
-                        │ PostgreSQL +       │  │  Redis (broker +      │
-                        │ pgvector           │  │  result backend)      │
-                        │ (org-scoped tables)│  └───────────┬───────────┘
-                        └────────────────────┘              │
-                                                    ┌────────▼─────────┐
-                                                    │ celery_worker      │
-                                                    │ celery_beat        │
-                                                    │ (parse, cluster,   │
-                                                    │  pipeline, publish)│
-                                                    └────────┬───────────┘
-                                                              │
-                                          ┌───────────────────┼───────────────────┐
-                                          ▼                   ▼                   ▼
-                                   Anthropic /          Perplexity /        Telegram Bot /
-                                   OpenAI /              OpenAI             Telethon
-                                   Google AI             (research,         (publish /
-                                   (synthesis,           fact-check)         parse)
-                                   embeddings, images)
+```mermaid
+flowchart TD
+    FE["Next.js 14 frontend :3000<br/>Supabase client, Google OAuth"] -->|HTTP| API["FastAPI backend :8000<br/>/api/v1/auth,users,orgs,companies,content<br/>/llms.txt /health /docs"]
+    API -->|SQLAlchemy| PG[("PostgreSQL + pgvector<br/>org-scoped tables")]
+    API -->|Celery tasks| R[("Redis<br/>broker + result backend")]
+    R --> W["celery_worker + celery_beat<br/>parse, cluster, pipeline, publish"]
+    W --> LLM["Anthropic / OpenAI / Google AI<br/>synthesis, embeddings, images"]
+    W --> PX["Perplexity / OpenAI<br/>research, fact-check"]
+    W --> TG["Telegram Bot / Telethon<br/>publish and parse"]
 ```
 
 Every AI call goes through an AI router that meters cost per org (`ai_usage` table) and
@@ -175,11 +164,14 @@ development.
 ## Testing
 
 ```bash
-# Backend test suite
-docker exec apex_backend pytest -q
+# Backend test suite (123 tests; mocked providers, no API keys needed)
+cd backend && python -m pytest -q
 
-# Frontend type-check
-cd frontend && npx tsc --noEmit
+# Frontend: type-check, unit tests (11), lint, production build
+cd frontend && npx tsc --noEmit && npm test && npx next lint && npx next build
+
+# Or inside the running stack
+docker exec apex_backend pytest -q
 ```
 
 ## Project layout
@@ -228,6 +220,10 @@ APEX/
 - Production: `docker-compose.prod.yml` (migrate job, no bind mounts, healthchecks) and
   `.github/workflows/ci.yml` exist but have not been run. TLS termination and the hosting
   target are not decided. Backend tests: `cd backend && python -m pytest -q`; frontend: `cd frontend && npm test`.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and checks, and [SECURITY.md](SECURITY.md) for private vulnerability reporting.
 
 ## License
 

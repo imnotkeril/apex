@@ -1,0 +1,9 @@
+# APEX Content Engine
+
+> Self-hosted, multi-tenant AI content automation: sources (Telegram, RSS, YouTube, manual input) to topic clusters to AI drafts to scheduled publishing. FastAPI, Celery, PostgreSQL with pgvector, Next.js.
+
+- [README](README.md): overview, architecture, quickstart, testing
+- [API reference](backend/llms.txt): the API surface for LLM agents (also served at `GET /llms.txt` on the backend)
+- [User guide](docs/USER_GUIDE.md)
+- [Environment setup](docs/setup/ENV_SETUP.md) and [secrets setup](docs/setup/SECRETS_SETUP.md)
+- [Security policy](SECURITY.md)

@@ -1,9 +1,11 @@
 # Changelog
 
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project does
-not yet have tagged releases — the sections below describe the current state of `develop`.
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project has no
+tagged releases before 1.0.0; the sections below describe `develop` at that release.
 
 ## [Unreleased]
+
+## [1.0.0] - 2026-11-17
 
 ### Pipeline
 
